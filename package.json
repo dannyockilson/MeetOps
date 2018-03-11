@@ -1,0 +1,12 @@
+{
+  "name": "meetops",
+  "version": "1.0.0",
+  "description": "Quick dev-ops style tools to help meetup organisers written in node.js",
+  "repository": "git@github.com:dannywilson/MeetOps.git",
+  "author": "Danny Wilson <danny@iamdannywilson.com>",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "link": "echo 'TODO: link all packages to root folder'"
+  }
+}
