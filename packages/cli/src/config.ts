@@ -3,6 +3,16 @@ import * as fs from "fs";
 import * as path from "path";
 
 const configPath = path.join(process.cwd(), "meetops.config.js");
+const template = `module.exports = `;
+
+const writeFile = (path, template) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(path, template, (err) => {
+            if (err) return reject(err);
+            return resolve();
+        });
+    });
+};
 
 export const getConfig = (defaults: any = {}) => {
     try {
@@ -24,4 +34,11 @@ export const getConfig = (defaults: any = {}) => {
             defaults,
         );
     }
-};
+}
+
+export const setConfig = (object: any = {}, baseDir = process.cwd()) => {
+    return writeFile(
+        path.join(baseDir, "meetops.config.js"),
+        template + JSON.stringify(object),
+    );
+}
