@@ -33,9 +33,10 @@ add `"meetops": "meetops --",` to your `package.json` scripts then use
 
 ## Command List
 
-* `help` - show cli tool help
+* `-h, --help` - show cli tool help
+* `-v, --version` - show cli version
 * `init` - setup folder structure and walk through some intial settings
 * `use {function-name}` - copy down the latest version of the function
     from git, where `function-name` is the files name, without extension
-* `deploy` - deploy your functions to the cloud provider (as configured)
+* `deploy` - deploy your functions to the cloud provider (as configured) TODO
 * `set` - set a configuration option (saved in meetops.js)
