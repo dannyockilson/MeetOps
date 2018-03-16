@@ -53,10 +53,10 @@ export const cloneRepo = (opts = defaultOptions) => {
     });
 }
 
-export const copyFunctionFile = (func: string) => {
-    let funcFile = path.join(clonePath, 'functions', `${func}.js`);
+export const copyFunctionFolder = (func: string) => {
+    let funcFolder = path.join(clonePath, 'functions', func);
     return new Promise((resolve, reject) => {
-        if (!fs.existsSync(funcFile)) {
+        if (!fs.existsSync(funcFolder)) {
             console.error(
                 chalk.red(`No function with name ${func} found in cloned repo`)
             );
@@ -64,8 +64,8 @@ export const copyFunctionFile = (func: string) => {
         }
 
         return fs.rename(
-            funcFile,
-            path.join(funcPath, `${func}.js`),
+            funcFolder,
+            path.join(funcPath, func),
             (err) => {
                 if (err) return reject(err);
                 return resolve();

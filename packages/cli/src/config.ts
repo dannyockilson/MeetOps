@@ -2,8 +2,7 @@ import chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path";
 
-const configPath = path.join(process.cwd(), "meetops.config.js");
-const template = `module.exports = `;
+const configPath = path.join(process.cwd(), "meetops.config.json");
 
 const writeFile = (path, template) => {
     return new Promise((resolve, reject) => {
@@ -39,6 +38,6 @@ export const getConfig = (defaults: any = {}) => {
 export const setConfig = (object: any = {}, baseDir = process.cwd()) => {
     return writeFile(
         path.join(baseDir, "meetops.config.js"),
-        template + JSON.stringify(object),
+        JSON.stringify(object),
     );
 }

@@ -1,7 +1,7 @@
 import * as commander from "commander";
 import { createConfigFile, createFolderStructure } from "./commands/init";
 import { getConfig, setConfig } from "./config";
-import { cloneRepo, copyFunctionFile, removeClonedDir } from "./commands/use";
+import { cloneRepo, copyFunctionFolder, removeClonedDir } from "./commands/use";
 
 const program = commander;
 
@@ -29,10 +29,10 @@ program.command("use <func>")
         let config = getConfig();
         // clone down repo
         console.log("use", func);
-        cloneRepo(config).then(() => {
+        cloneRepo(config.git).then(() => {
             console.log("Finished cloning");
             // copy function you want
-            copyFunctionFile(func).then(() => {
+            copyFunctionFolder(func).then(() => {
                 console.log("Finished copying function file");
                 // cleanup
                 removeClonedDir().then(() => {
