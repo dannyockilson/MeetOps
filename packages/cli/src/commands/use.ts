@@ -1,7 +1,9 @@
 import * as git from 'nodegit';
 import * as path from 'path';
 import * as fs from 'fs';
+import { ncp } from 'ncp';
 import chalk from 'chalk';
+import * as mkdirp from 'mkdirp';
 
 export interface IUseCommandOptions {
     mode: string;
@@ -30,6 +32,18 @@ const cloneOpts = {
             certificateCheck: function () { return 1; }
         }
     }
+}
+
+export const makeNMove = (path, destination) => {
+    return new Promise((resolve, reject) => {
+        mkdirp(destination, (err) => {
+            if (err) return reject(err);
+            ncp(path, destination, (err) => {
+                if (err) return reject(err);
+                return resolve();
+            })
+        });
+    });
 }
 
 export const cloneRepo = (opts = defaultOptions) => {
@@ -63,14 +77,14 @@ export const copyFunctionFolder = (func: string) => {
             return reject();
         }
 
-        return fs.rename(
+        return makeNMove(
             funcFolder,
-            path.join(funcPath, func),
-            (err) => {
-                if (err) return reject(err);
-                return resolve();
-            }
-        );
+            path.join(funcPath, func)
+        ).then(() => {
+            return resolve();
+        }).catch((err) => {
+            return reject(err);
+        });
 
     });
 }

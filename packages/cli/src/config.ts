@@ -13,6 +13,22 @@ const writeFile = (path, template) => {
     });
 };
 
+export const buildConfigObject = (key, value, config = {}) => {
+    let keys = key.split('.');
+    let current = keys.shift();
+    if (keys.length > 0) {
+        config[current] = typeof config[current] == 'object' ? config[current] : {};
+        config[current] = buildConfigObject(
+            keys.join('.'),
+            value,
+            config[current]
+        );
+    } else {
+        config[current] = value;
+    }
+    return config;
+}
+
 export const getConfig = (defaults: any = {}) => {
     try {
         return Object.assign(
@@ -35,9 +51,9 @@ export const getConfig = (defaults: any = {}) => {
     }
 }
 
-export const setConfig = (object: any = {}, baseDir = process.cwd()) => {
+export const setConfig = (object: any = {}) => {
     return writeFile(
-        path.join(baseDir, "meetops.config.js"),
+        configPath,
         JSON.stringify(object),
     );
 }

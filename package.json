@@ -7,6 +7,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "link": "echo 'TODO: link all packages to root folder'"
+    "build:cli": "cd packages/cli && yarn build && yarn link && cd ../../"
   }
 }

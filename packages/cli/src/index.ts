@@ -1,6 +1,6 @@
 import * as commander from "commander";
 import { createConfigFile, createFolderStructure } from "./commands/init";
-import { getConfig, setConfig } from "./config";
+import { getConfig, setConfig, buildConfigObject } from "./config";
 import { cloneRepo, copyFunctionFolder, removeClonedDir } from "./commands/use";
 
 const program = commander;
@@ -39,7 +39,30 @@ program.command("use <func>")
                     console.log("Finished cleanup");
                 });
             });
+        }).catch(() => {
+            removeClonedDir().then(() => {
+                console.log("Finished cleanup");
+            });
         });
+    });
+
+program.command("scratch")
+    .description("Fake command for testing purposes")
+    .action((key, value) => {
+        let config = buildConfigObject(
+            key,
+            value,
+            {
+                git: {
+                    mode: "ssh",
+                    user: {
+                        username: "danny",
+                        password: "lol"
+                    }
+                }
+            }
+        );
+        console.log(JSON.stringify(config));
     });
 
 program.command("deploy").action(() => {
@@ -53,8 +76,7 @@ program.command("set <key> <value>")
     .action((key, value) => {
         let config = getConfig();
         console.log(`set "${key}" config option to "${value}"`);
-        config[key] = value;
-        console.log(config);
+        config = buildConfigObject(key, value, config);
         setConfig(config);
     });
 
