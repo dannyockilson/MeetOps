@@ -24,5 +24,4 @@ add `"meetops": "meetops --",` to your `package.json` scripts then use
 * `init` - setup folder structure and walk through some intial settings
 * `use {function-name}` - copy down the latest version of the function
     from git, where `function-name` is the sub directory name, under the functions folder
-* `deploy` - deploy your functions to the cloud provider (as configured) TODO
 * `set` - set a configuration option (saved in meetops.js)

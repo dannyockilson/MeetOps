@@ -65,12 +65,6 @@ program.command("scratch")
         console.log(JSON.stringify(config));
     });
 
-program.command("deploy").action(() => {
-    let config = getConfig();
-    // TODO: maybe...
-    console.log("deploy");
-});
-
 program.command("set <key> <value>")
     .description("Save a configuration option to the meetops.config.js")
     .action((key, value) => {

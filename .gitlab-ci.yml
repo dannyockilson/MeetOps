@@ -1,0 +1,17 @@
+gcloud_deploy:
+  artifacts:
+    paths:
+    - functions/
+  only:
+    - google
+  script:
+    - echo "this should deploy to google cloud functions"
+
+lambda_deploy:
+  artifacts:
+    paths:
+    - functions/
+  only:
+    - lambda
+  script:
+    - echo "this should deploy to aws lambda"
