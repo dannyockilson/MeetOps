@@ -46,25 +46,6 @@ program.command("use <func>")
         });
     });
 
-program.command("scratch")
-    .description("Fake command for testing purposes")
-    .action((key, value) => {
-        let config = buildConfigObject(
-            key,
-            value,
-            {
-                git: {
-                    mode: "ssh",
-                    user: {
-                        username: "danny",
-                        password: "lol"
-                    }
-                }
-            }
-        );
-        console.log(JSON.stringify(config));
-    });
-
 program.command("set <key> <value>")
     .description("Save a configuration option to the meetops.config.js")
     .action((key, value) => {
@@ -73,5 +54,27 @@ program.command("set <key> <value>")
         config = buildConfigObject(key, value, config);
         setConfig(config);
     });
+
+if(process.env.ALLOW_SCRATCH_MODE) {
+
+    program.command("scratch")
+        .description("Fake command for testing purposes")
+        .action((key, value) => {
+            let config = buildConfigObject(
+                key,
+                value,
+                {
+                    git: {
+                        mode: "ssh",
+                        user: {
+                            username: "danny",
+                            password: "lol"
+                        }
+                    }
+                }
+            );
+            console.log(JSON.stringify(config));
+        });
+}
 
 program.parse(process.argv);

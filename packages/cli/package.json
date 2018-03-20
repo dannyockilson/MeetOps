@@ -13,8 +13,8 @@
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "start": "node -r dotenv/config dist/index.js",
+    "dev": "ts-node -r dotenv/config src/index.ts",
     "clean": "rm -rf events/ functions/ meetops.config.json tmp/"
   },
   "dependencies": {
